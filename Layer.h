@@ -6,19 +6,21 @@ class Layer {
 public:
 	Layer() = default;
 
-	Layer(std::vector<double> neurons) {
-		std::vector<std::vector<double>> mat(1,std::vector<double>(neurons.size()));
-		mat[0] = neurons;
-
-		this->neurons = Matrix<double>(mat);
+	Layer(const std::vector<double>& neurons) {
+		this->neurons = Matrix<double>({ neurons });
 	}
 	
-	Layer(Matrix<double> neurons) {
+	Layer(const Matrix<double>& neurons) {
 		this->neurons = neurons;
 	}
 
 	Layer(const Layer& l) {
 		neurons = l.neurons;
+	}
+
+	Layer& operator=(const Layer& l) {
+		neurons = l.neurons;
+		return *this;
 	}
 
 	int numOfNeurons() const {
